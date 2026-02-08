@@ -39,6 +39,7 @@ html {
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   opacity: 0;
+  pointer-events: none;
   background: rgba(12,12,12,0.85);
   backdrop-filter: blur(14px);
   border-radius: 22px;
@@ -49,11 +50,14 @@ html {
   box-shadow: 0 40px 90px rgba(0,0,0,0.8);
   transition: all 2s ease;
   z-index: 999;
+  visibility: hidden;
 }
 
 #finalCard.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+  visibility: visible;
 }
 .card {
   position: relative;
@@ -143,6 +147,17 @@ button {
   position: absolute;
 }
 
+.rose {
+  position: absolute;
+  top: -30px;
+  font-size: 22px;
+  animation: fall 7s linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(120vh); opacity: 0; }
+}
 .footer {
   margin-top: 18px;
   font-size: 12px;
@@ -237,6 +252,7 @@ button {
     started = true;
     document.getElementById("music").play();
     type();
+    roses();
     //setTimeout(finale, 17000);
     }
 
@@ -275,6 +291,17 @@ button {
         const finalCard = document.getElementById("finalCard");
         finalCard.classList.add("show");
     }, 1500);
+    }
+    function roses() {
+      for (let r = 0; r < 20; r++) {
+        const rose = document.createElement("div");
+        rose.className = "rose";
+        rose.innerHTML = "🌹";
+        rose.style.left = Math.random() * 100 + "vw";
+        rose.style.animationDuration = (5 + Math.random() * 3) + "s";
+        document.body.appendChild(rose);
+        setTimeout(() => rose.remove(), 9000);
+      }
     }
 
     </script>
